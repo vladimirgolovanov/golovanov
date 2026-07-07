@@ -48,6 +48,7 @@ jobs:
       - name: Deploy on server
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+            kubectl create namespace golovanov --dry-run=client -o yaml | kubectl apply -f -
             kubectl apply -f /projects/golovanov/k8s/
             kubectl rollout restart deployment/golovanov -n golovanov
           EOF
