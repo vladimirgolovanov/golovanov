@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: golovanov
+  namespace: golovanov
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: golovanov
+  template:
+    metadata:
+      labels:
+        app: golovanov
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: golovanov
+          image: ghcr.io/vladimirgolovanov/golovanov/golovanov:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 14450
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: golovanov
+  namespace: golovanov
+spec:
+  selector:
+    app: golovanov
+  ports:
+    - port: 14450
+      targetPort: 14450
