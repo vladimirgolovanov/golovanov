@@ -13,6 +13,8 @@ spec:
       labels:
         app: golovanov
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: golovanov
           image: ghcr.io/vladimirgolovanov/golovanov/golovanov:latest
